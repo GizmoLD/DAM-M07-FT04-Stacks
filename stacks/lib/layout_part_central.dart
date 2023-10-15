@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'app_data.dart';
 import 'widget_popover.dart';
+import 'package:flutter/material.dart';
 
 class LayoutPartCentral extends StatefulWidget {
   const LayoutPartCentral({super.key});
@@ -10,7 +11,32 @@ class LayoutPartCentral extends StatefulWidget {
   LayoutPartCentralState createState() => LayoutPartCentralState();
 }
 
+enum SelectedColor { Negro, Vermell, Verd, Blau }
+
 class LayoutPartCentralState extends State<LayoutPartCentral> {
+  SelectedColor _selectedColor = SelectedColor.Negro;
+
+  Color _getColor() {
+    switch (_selectedColor) {
+      case SelectedColor.Negro:
+        return Colors.black;
+      case SelectedColor.Vermell:
+        return Colors.red;
+      case SelectedColor.Verd:
+        return Colors.green;
+      case SelectedColor.Blau:
+        return Colors.blue;
+      default:
+        return Colors.black; // Color por defecto
+    }
+  }
+
+  void changeColor(SelectedColor color) {
+    setState(() {
+      _selectedColor = color;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     AppData appData = Provider.of<AppData>(context);
@@ -36,18 +62,6 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
               const SizedBox(width: 16),
             ],
           ),
-          //middle: Text("hola"),
-          /*
-          middle: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(CupertinoIcons.settings, color: CupertinoColors.black),
-              SizedBox(
-                  width:8), // Ajusta el espacio entre el icono y el texto si es necesario
-            ],
-          ),
-          */
-
           middle: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -64,6 +78,7 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                changeColor(SelectedColor.Negro);
                                 print("Opció 1 premuda");
                                 WidgetPopover.hidePopover();
                               },
@@ -71,6 +86,7 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                changeColor(SelectedColor.Vermell);
                                 print("Opció 2 premuda");
                                 WidgetPopover.hidePopover();
                               },
@@ -78,6 +94,7 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                changeColor(SelectedColor.Verd);
                                 print("Opció 3 premuda");
                                 WidgetPopover.hidePopover();
                               },
@@ -85,6 +102,7 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                changeColor(SelectedColor.Blau);
                                 print("Opció 4 premuda");
                                 WidgetPopover.hidePopover();
                               },
@@ -103,7 +121,6 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
               ),
             ],
           ),
-
           trailing: CupertinoButton(
               padding: const EdgeInsets.all(0.0),
               onPressed: appData
@@ -121,7 +138,12 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
           padding: const EdgeInsets.only(top: 50.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text("Central")],
+            children: [
+              Text("Central",
+                  style: TextStyle(
+                    color: _getColor(),
+                  ))
+            ],
           ),
         ));
   }
