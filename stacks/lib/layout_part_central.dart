@@ -11,14 +11,14 @@ class LayoutPartCentral extends StatefulWidget {
   LayoutPartCentralState createState() => LayoutPartCentralState();
 }
 
-enum SelectedColor { Negro, Vermell, Verd, Blau }
+enum SelectedColor { Negre, Vermell, Verd, Blau }
 
 class LayoutPartCentralState extends State<LayoutPartCentral> {
-  SelectedColor _selectedColor = SelectedColor.Negro;
+  SelectedColor _selectedColor = SelectedColor.Negre;
 
   Color _getColor() {
     switch (_selectedColor) {
-      case SelectedColor.Negro:
+      case SelectedColor.Negre:
         return Colors.black;
       case SelectedColor.Vermell:
         return Colors.red;
@@ -27,7 +27,7 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
       case SelectedColor.Blau:
         return Colors.blue;
       default:
-        return Colors.black; // Color por defecto
+        return Colors.black;
     }
   }
 
@@ -78,7 +78,7 @@ class LayoutPartCentralState extends State<LayoutPartCentral> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                changeColor(SelectedColor.Negro);
+                                changeColor(SelectedColor.Negre);
                                 print("Opció 1 premuda");
                                 WidgetPopover.hidePopover();
                               },
